@@ -61,7 +61,22 @@ for (i in Subs){
   # matrix
   df <- cbind(df.l, df.r)
   df.cor <- cor(df, method = 'pearson')
+  # raw matrix
   write.table(df.cor, paste0(Output.path, 'ROICorrelation_', i, '.txt'),
+              col.names = F, row.names = F)
+  # abs matrix
+  df.cor.abs <- abs(df.cor)
+  write.table(df.cor.abs, paste0(Output.path, 'abs/abs_ROICorrelation_', i, '.txt'),
+              col.names = F, row.names = F)
+  # positive matrix
+  df.cor.pos <- df.cor
+  df.cor.pos[df.cor.pos < 0] = 0
+  write.table(df.cor.pos, paste0(Output.path, 'pos/pos_ROICorrelation_', i, '.txt'),
+              col.names = F, row.names = F)
+  # negative matrix
+  df.cor.neg <- df.cor
+  df.cor.neg[df.cor.neg > 0 ] = 0
+  write.table(abs(df.cor.neg), paste0(Output.path, 'neg/neg_ROICorrelation_', i, '.txt'),
               col.names = F, row.names = F)
 }
 
